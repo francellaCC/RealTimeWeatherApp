@@ -76,12 +76,12 @@ export const useWeather = () => {
       const weatherResponse = await fetch(weatherUrl);
       const weatherData = await weatherResponse.json();
       const result = parse(WeaherSchema, weatherData);
-
-      console.log(result)
+     
+      console.log("result" , result)
       if (result) {
         setWeather(result);
-        console.log(weatherCity);
       }
+      console.log('state', weatherCity)
 
       // Próximos días
       const forecastsResponse = await fetch(forecastsWeatherUrl);

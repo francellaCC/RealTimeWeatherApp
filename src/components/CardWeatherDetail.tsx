@@ -5,7 +5,7 @@ import { WeatherCity } from "../hook/useWeather"
 
 
 type CardWeatherDetailProps = {
-  weatherCity: WeatherCity
+  weatherCity: Weather
 }
 function CardWeatherDetail({ weatherCity }: CardWeatherDetailProps) {
 
