@@ -11,7 +11,12 @@ const initialState = {
   },
   sys: {
     country: '',
-  }
+  },
+  weather: [
+    {
+      icon: ''
+    }
+  ]
 }
 
 type CityCoordinates = {
@@ -20,14 +25,6 @@ type CityCoordinates = {
   lat: string
   country: string
   state: string
-}
-
-interface WeatherForecast {
-  dt: number;
-  dt_txt: string;
-  main: {
-    temp: number;
-  };
 }
 
 export type FiveDaysWeather = {
@@ -62,42 +59,36 @@ const DaysWeatherSchema = object({
 
 export type FiveDaysWeatherType = InferInput<typeof DaysWeatherSchema>
 
-
-interface WeatherResponse {
-  list: WeatherForecast[];
-}
+export type WeatherCity = InferInput<typeof WeaherSchema>
 
 export const useWeather = () => {
 
   const api_key = "69e008d5adbd735836808ebb95bc1f2f"
-  const [weather, setWeather] = useState(initialState)
+  const [weatherCity, setWeather] = useState(initialState)
   const [fiveDaysWeather, setFiveDaysWeather] = useState<FiveDaysWeather[]>([])
 
-  const getDetailsWeather = ({ name, lon, lat, country, state }: CityCoordinates) => {
-    const forecastsWeatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${api_key}`
-    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${api_key}`
+  async function getDetailsWeather({ name, lon, lat, country, state }: CityCoordinates) {
+    const forecastsWeatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${api_key}`;
+    const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${api_key}`;
 
-    // saber la temperatura de un lugar
-    fetch(weatherUrl).then(res => res.json()).then(data => {
+    try {
+      // Saber la temperatura de un lugar
+      const weatherResponse = await fetch(weatherUrl);
+      const weatherData = await weatherResponse.json();
+      const result = parse(WeaherSchema, weatherData);
 
-     
-      const result = parse(WeaherSchema, data)
+      console.log(result)
       if (result) {
-        setWeather(result)
-        console.log(weather)
+        setWeather(result);
+        console.log(weatherCity);
       }
-    }).catch(() => {
-      console.log('falled 2')
-    })
 
-    // proximos dias
+      // Próximos días
+      const forecastsResponse = await fetch(forecastsWeatherUrl);
+      const forecastsData = await forecastsResponse.json();
+      const responseFiveDaysWeather = parse(DaysWeatherSchema, forecastsData);
 
-    fetch(forecastsWeatherUrl).then(res => res.json()).then(data => {
-
-   
-      const responseFiveDaysWeather = parse(DaysWeatherSchema, data)
       if (responseFiveDaysWeather) {
-
         const uniqueF: number[] = [];
         const filteredDays = responseFiveDaysWeather.list.filter(forecast => {
           const forecastDate = new Date(forecast.dt_txt).getDate();
@@ -110,29 +101,28 @@ export const useWeather = () => {
           return false;
         });
 
-        setFiveDaysWeather(filteredDays)
-       
+        setFiveDaysWeather(filteredDays);
       }
-
-
-    }).catch(() => {
-      console.log('falled 2')
-    })
-
-  }
-  const getCityCoordinates = (formData: FormSearchWeather) => {
-    const { city } = formData
-    
-    const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${api_key}`
-    fetch(url).then(res => res.json()).then(data => {
-      const { name, lon, lat, country, state } = data[0]
-      getDetailsWeather({ name, lon, lat, country, state })
-    }).catch(() => {
-      console.log('falled')
-    })
-
+    } catch (error) {
+      console.log('Falló la solicitud');
+    }
   }
 
+  async function getCityCoordinates(formData: FormSearchWeather) {
+    const { city } = formData;
+    const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${api_key}`;
 
-  return { getCityCoordinates, weather, fiveDaysWeather }
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      const { name, lon, lat, country, state } = data[0];
+
+      // Llama a getDetailsWeather usando await
+      await getDetailsWeather({ name, lon, lat, country, state });
+    } catch (error) {
+      console.log('Falló la solicitud de coordenadas');
+    }
+  }
+
+  return { getCityCoordinates, weatherCity, fiveDaysWeather }
 }

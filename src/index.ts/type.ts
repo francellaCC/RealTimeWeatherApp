@@ -12,6 +12,9 @@ export type Weather = {
   sys: {
     country: string,
   }
+  weather: [{
+    icon: ''
+  }]
 }
 
 export type FiveDaysWeather ={

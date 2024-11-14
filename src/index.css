@@ -117,6 +117,12 @@ h1{
   font-weight: 500;
 }
 
+.cardWeather_element_div{
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
 .cardWeather_element_temp{
   font-size: 3rem;
   font-weight: 700;

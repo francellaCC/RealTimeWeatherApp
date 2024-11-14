@@ -4,7 +4,7 @@ import Search from './components/Search'
 import { useWeather } from './hook/useWeather'
 
 function App() {
-  const {getCityCoordinates, weather, fiveDaysWeather} = useWeather()
+  const {getCityCoordinates, weatherCity, fiveDaysWeather} = useWeather()
 
   return (
     <div className='container'>
@@ -13,7 +13,7 @@ function App() {
         <Search getCityCoordinates ={getCityCoordinates} />
       </header>
       <div>
-        <CardWeatherDetail weather={weather} />
+        <CardWeatherDetail weatherCity={weatherCity} />
         <CardFiveDaysDetail fiveDaysWeather={fiveDaysWeather}/>
       </div>
     </div>
