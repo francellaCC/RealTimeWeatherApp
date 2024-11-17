@@ -31,20 +31,20 @@ body, html {
   
 }
 
-
-
-.container{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: auto 10px 30px 10px;
-}
 .header_container{
   margin-top: 4rem;
   display: flex;
   flex-direction: row;
   position: relative;
 }
+
+
+.container{
+  display: flex;
+  flex-direction: row;
+  margin: auto 10px 30px 10px;
+}
+
 
 h1{
  font-size: 2.5rem;
@@ -161,4 +161,40 @@ h1{
   font-size: 1.2rem;
   font-weight: 500;
   justify-content: space-between;
+}
+
+/* rigth */
+
+.weather-right{
+  margin-top: 40px;
+  margin-left: 20px;
+}
+
+.weather-right h2{
+  margin-bottom: 15px;
+}
+
+.highLight{
+  display: grid;
+  column-gap: 15px;
+  background-color: var(--primary-color);
+  width: 400px;
+  height: 350px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.card{
+  padding: 10px;
+}
+.card-head{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+.air-index{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  place-items: center;
+  gap: 1rem;
 }
