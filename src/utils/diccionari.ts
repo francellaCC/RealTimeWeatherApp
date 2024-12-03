@@ -22,3 +22,5 @@ export const MountofYear=[
   "Nomb",
   "Dic"
 ]
+
+export const aqiList = ["Good","Fair","Moderate", "Poor", "Very Poor" ]

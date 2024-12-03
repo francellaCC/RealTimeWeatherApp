@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { FiveDaysWeather } from '../index.ts/type'
 import { formartTemperature, getDate, getDay } from '../utils/utils'
 
@@ -14,7 +14,7 @@ export default function CardFiveDaysDetail({ fiveDaysWeather }: CardFiveDaysDeta
       <h2>Pronóstico de 5 días</h2>
 
       {
-        fiveDaysWeather?.map(item => (
+        fiveDaysWeather.map(item => (
           <div className='cardFivedays_element'>
             <p>{item.main.temp ? formartTemperature(item.main.temp) : "0"}&deg;C</p>
             <p>{item.dt_txt ? getDate(item.dt_txt) : '----'}</p>

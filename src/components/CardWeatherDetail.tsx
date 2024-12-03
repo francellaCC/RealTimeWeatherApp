@@ -1,5 +1,4 @@
 import { useMemo } from "react"
-import { Weather } from "../index.ts/type"
 import {  formartTemperature, getDayOfWeek } from "../utils/utils"
 import { WeatherCity } from "../hook/useWeather"
 

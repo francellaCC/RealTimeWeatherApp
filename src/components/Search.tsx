@@ -9,7 +9,6 @@ export default function Search({ getCityCoordinates }: SearchTypeProps) {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormSearchWeather>()
 
   const formSearch = (formData: FormSearchWeather) => {
-    console.log(formData)
     getCityCoordinates(formData)
     reset()
   }
