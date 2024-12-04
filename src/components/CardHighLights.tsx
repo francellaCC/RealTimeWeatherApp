@@ -11,8 +11,6 @@ function CardHighLights({ airPollution }: CardHighLightsProps) {
   const componentsObject = airPollution?.list[0].components;
   const quality = airPollution?.list[0].main.aqi
 
-
-  console.log("airPollution", aqiList[quality ? quality - 1 : 1])
   return (
     <div className="weather-right">
       <h2 >Destacados de hoy</h2>

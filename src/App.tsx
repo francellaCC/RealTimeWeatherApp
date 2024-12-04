@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import CardFiveDaysDetail from './components/CardFiveDaysDetail'
 import CardWeatherDetail from './components/CardWeatherDetail'
 import Search from './components/Search'

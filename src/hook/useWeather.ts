@@ -146,10 +146,8 @@ export const useWeather = () => {
       const forecastsResponse = await fetch(forecastsWeatherUrl);
       const forecastsData = await forecastsResponse.json();
 
-      console.log(forecastsData)
       const responseFiveDaysWeather = parse(DaysWeatherSchema, forecastsData);
 
-      console.log(responseFiveDaysWeather)
       if (responseFiveDaysWeather) {
 
         const hourly = []
@@ -167,7 +165,6 @@ export const useWeather = () => {
           if (hr > 12) {
             hr = hr - 12
           }
-          console.log("Hora", hr, a)
 
           hourly.push({ hr, hora: a, icon: responseFiveDaysWeather.list[index].weather[0].icon, temp })
 

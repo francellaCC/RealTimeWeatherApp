@@ -15,7 +15,7 @@ export default function Search({ getCityCoordinates, getUserCoordinate }: Search
   }
 
   const handleClick = () => {
-    console.log("local")
+
     getUserCoordinate()
   }
   return (
