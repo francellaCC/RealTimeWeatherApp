@@ -32,7 +32,7 @@ body, html {
 }
 
 .header_container{
-  margin-top: 4rem;
+  margin-top: 20px;
   display: flex;
   flex-direction: row;
   position: relative;
@@ -55,7 +55,7 @@ h1{
 }
 
 .form_weather {
-  margin-left: 50rem;
+  margin-left: 40em;
   display: flex;
   flex-direction: row;
   gap: 10px;
@@ -85,23 +85,33 @@ h1{
   font-size: 0.9rem;
   margin-top: 5px;
 }
-
-.form_weather button {
+.button{
   width: 100px;
   height: 40px;
   border-radius: 10px;
   border: none;
-  background-color: white;
-  color: black;
   font-size: 1.1rem;
   font-style: normal;
   font-weight: 300;
 }
 
+.form_weather button {
+
+  background-color: white;
+  color: black;
+
+}
+
+.button-location{
+  background-color: #ff5858;
+  color: #fcfcfc;
+  margin: 10px;
+}
+
 /* Card Weather Detail*/
 
 .cardWeather{
-  margin-top: 60px;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -150,7 +160,7 @@ h1{
   margin-top: 30px;
   background-color: var(--primary-color);
   width: 320px;
-  height: 400px;
+  height: 390px;
   padding: 35px;
   border-radius: 20px;
 }
@@ -203,33 +213,33 @@ h1{
 
 .calidad{
   padding: 10px;
-  border-radius: 25px;
+  border-radius: 10px;
   font-size: 600;
   background-color: #3a3939;
   font-weight: 600;
 }
 
 .color_1{
-  background: #eee716;
+  background: #d4e157;
 }
 .color_2{
-  background: #eee716;
+  background: #ffee58;
 }
 .color_3{
-  background: #eee716;
+  background: #ffca28;
 }
 .color_4{
-  background: #eee716;
+  background: #ff7043;
 }
 .color_5{
-  background: #f1231c;
+  background: #ef535e;
 }
 
 
 /*  */
 
 .container_cardSunrisetSunset{
-  width: 300px;
+  width: 500px;
   height: 200px;
   margin-top: 94px;
   background-color: var(--primary-color);
@@ -281,7 +291,7 @@ h1{
 }
 .container_hourlyForescat{
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 }
 

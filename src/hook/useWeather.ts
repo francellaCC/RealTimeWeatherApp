@@ -25,21 +25,20 @@ const initialState = {
   }
 }
 
-const initialHourlyForescat =[
+const initialHourlyForescat = [
   {
     hr: 3,
-      hora: "AM",
-      icon: "04d",
-      temp: 0
+    hora: "AM",
+    icon: "04d",
+    temp: 0
   }
 ]
 
 type CityCoordinates = {
-  name: string
+
   lon: string
   lat: string
-  country: string
-  state: string
+  
 }
 
 export type FiveDaysWeather = {
@@ -48,9 +47,9 @@ export type FiveDaysWeather = {
     temp: number;  // Temperatura
   };
   weather:  // Aquí se espera una tupla con un solo objeto que tiene un `icon`
-    {
-      icon: string;  // Ícono del clima
-    }[]
+  {
+    icon: string;  // Ícono del clima
+  }[]
   ;
 };
 const WeaherSchema = object({
@@ -119,10 +118,10 @@ export const useWeather = () => {
   const [weatherCity, setWeather] = useState(initialState)
   const [fiveDaysWeather, setFiveDaysWeather] = useState<FiveDaysWeather[]>([])
   const [airPollution, setAirPollution] = useState<AirPullution>()
-  const [hourlyForescat, setHourlyForescat] = useState<{ hr: number; hora: string, icon : string, temp : number }[]>(initialHourlyForescat)
+  const [hourlyForescat, setHourlyForescat] = useState<{ hr: number; hora: string, icon: string, temp: number }[]>(initialHourlyForescat)
 
 
-  async function getDetailsWeather({ name, lon, lat, country, state }: CityCoordinates) {
+  async function getDetailsWeather({ lon, lat }: CityCoordinates) {
     const forecastsWeatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${api_key}`;
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${api_key}`;
     const air_pollution = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${api_key}`;
@@ -169,31 +168,31 @@ export const useWeather = () => {
             hr = hr - 12
           }
           console.log("Hora", hr, a)
-          
-          hourly.push({ hr, hora: a , icon:responseFiveDaysWeather.list[index].weather[0].icon, temp})
+
+          hourly.push({ hr, hora: a, icon: responseFiveDaysWeather.list[index].weather[0].icon, temp })
 
         }
         setHourlyForescat(hourly)
         const uniqueF: number[] = [];
-       const icon : string [] =  []
+        const icon: string[] = []
 
-      
+
         const filteredDays = responseFiveDaysWeather.list.filter(forecast => {
           const forecastDate = new Date(forecast.dt_txt).getDate();
 
           if (uniqueF.length < 5) {
-            
+
             if (!uniqueF.includes(forecastDate) && !icon.includes(forecast.weather[0].icon)) {
               icon.push(forecast.weather[0].icon)
               uniqueF.push(forecastDate);
-             
+
               return true;
             }
           }
           return false;
         });
 
-       
+
 
         setFiveDaysWeather(filteredDays)
       }
@@ -209,14 +208,23 @@ export const useWeather = () => {
     try {
       const response = await fetch(url);
       const data = await response.json();
-      const { name, lon, lat, country, state } = data[0];
+      const {lon, lat } = data[0];
 
       // Llama a getDetailsWeather usando await
-      await getDetailsWeather({ name, lon, lat, country, state });
+      await getDetailsWeather({  lon, lat });
     } catch (error) {
       console.log('Falló la solicitud de coordenadas');
     }
   }
 
-  return { getCityCoordinates, weatherCity, fiveDaysWeather, airPollution, hourlyForescat }
+   async function getUserCoordinate() {
+    navigator.geolocation.getCurrentPosition(position => {
+      const { longitude, latitude } = position.coords
+      getDetailsWeather({lon : longitude.toString(), lat: latitude.toString()})
+    })
+  }
+
+
+  return { getCityCoordinates, getUserCoordinate, weatherCity, fiveDaysWeather, airPollution, hourlyForescat }
 }
+

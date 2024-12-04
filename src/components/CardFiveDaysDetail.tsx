@@ -15,7 +15,7 @@ export default function CardFiveDaysDetail({ fiveDaysWeather }: CardFiveDaysDeta
 
       {
         fiveDaysWeather.map(item => (
-          <div className='cardFivedays_element'>
+          <div key={item.dt_txt} className='cardFivedays_element'>
             <p>{item.main.temp ? formartTemperature(item.main.temp) : "0"}&deg;C</p>
             <p>{item.dt_txt ? getDate(item.dt_txt) : '----'}</p>
             <p>{item.dt_txt ? getDay(item.dt_txt) : '----'}</p>
