@@ -272,11 +272,14 @@ h1{
 .card_header {
   text-align: left;
   font-weight: 300;
+ 
 }
 .card_body {
   text-align: end;
   font-size: 1.5rem;
   font-weight: 600;
+  display: flex;
+  justify-content: space-between;
 }
 
 
